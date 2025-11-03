@@ -7,31 +7,64 @@ spring:
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    open-in-view: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: default
 
   web:
     resources:
       static-locations: classpath:/static/
+      cache:
+        period: 0
 
   thymeleaf:
     cache: false
     prefix: classpath:/templates/
     suffix: .html
     mode: HTML
+    encoding: UTF-8
 
   security:
     user:
       name: admin
       password: admin
       roles: ADMIN
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  task:
+    execution:
+      pool:
+        core-size: 2
+        max-size: 5
+        queue-capacity: 100
+    scheduling:
+      pool:
+        size: 2
 
 server:
   port: 8080
