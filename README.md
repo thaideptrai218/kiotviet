@@ -30,7 +30,7 @@ Before you begin, ensure you have the following installed:
 - Java 17+
 - Maven 3.6+
 - Docker & Docker Compose
-- Git
+- Github
 
 ## 🚀 Quick Start
 
