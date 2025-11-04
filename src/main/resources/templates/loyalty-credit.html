@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loyalty & Credit Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../static/css/loyalty-credit.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h3>Loyalty & Credit Dashboard</h3>
+
+        <!-- Loyalty Points Dashboard -->
+        <div class="card p-3 mb-3">
+            <h5>Loyalty Points</h5>
+            <div id="loyalty-status">
+                <p><strong>Balance:</strong> <span id="loyaltyBalance">0</span> points</p>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" id="pointsProgress"></div>
+                </div>
+                <p><strong>Next Tier:</strong> <span id="nextTier"></span></p>
+            </div>
+        </div>
+
+        <!-- Credit Dashboard -->
+        <div class="card p-3 mb-3">
+            <h5>Credit Monitoring</h5>
+            <p><strong>Credit Limit:</strong> $<span id="creditLimit">0</span></p>
+            <p><strong>Current Balance:</strong> $<span id="creditBalance">0</span></p>
+            <p><strong>Available Credit:</strong> $<span id="availableCredit">0</span></p>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 0%" id="creditUtilization"></div>
+            </div>
+            <p><strong>Credit Utilization:</strong> <span id="utilizationPercentage">0%</span></p>
+        </div>
+
+        <!-- Payment History -->
+        <div class="card p-3 mb-3">
+            <h5>Payment History</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Payment Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="paymentHistory"></tbody>
+            </table>
+        </div>
+
+        <!-- Communication History -->
+        <div class="card p-3 mb-3">
+            <h5>Communication Log</h5>
+            <ul id="communicationLog">
+                <!-- Communications will be listed here -->
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/script/loyalty-credit.js"></script>
+</body>
+
+</html>

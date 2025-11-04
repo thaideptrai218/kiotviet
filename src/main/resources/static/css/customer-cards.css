@@ -1,0 +1,18 @@
+body {
+    background-color: #f9fafb;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.container-fluid {
+    padding: 20px;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
