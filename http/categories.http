@@ -1,0 +1,207 @@
+### KiotViet Product Management System - Category API Tests
+### Host: http://localhost:8080
+
+### Variables
+@baseUrl = http://localhost:8080/api/v1
+@contentType = application/json
+
+### 1. Get all categories
+GET {{baseUrl}}/categories
+Content-Type: {{contentType}}
+
+###
+
+### 2. Get category by ID
+GET {{baseUrl}}/categories/1
+Content-Type: {{contentType}}
+
+###
+
+### 3. Get root categories (categories without parent)
+GET {{baseUrl}}/categories/root
+Content-Type: {{contentType}}
+
+###
+
+### 4. Get subcategories of a parent category
+GET {{baseUrl}}/categories/1/subcategories
+Content-Type: {{contentType}}
+
+###
+
+### 5. Get category tree structure
+GET {{baseUrl}}/categories/tree
+Content-Type: {{contentType}}
+
+###
+
+### 6. Get active categories
+GET {{baseUrl}}/categories/active
+Content-Type: {{contentType}}
+
+###
+
+### 7. Search categories by keyword
+GET {{baseUrl}}/categories/search?keyword=electronics
+Content-Type: {{contentType}}
+
+###
+
+### 8. Create new root category
+POST {{baseUrl}}/categories
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "name": "Electronics",
+  "description": "Electronic devices and accessories",
+  "imageUrl": "https://example.com/electronics.jpg",
+  "sortOrder": 1,
+  "active": true
+}
+
+###
+
+### 9. Create new subcategory
+POST {{baseUrl}}/categories
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "name": "Laptops",
+  "description": "Laptop computers and accessories",
+  "parentId": 1,
+  "sortOrder": 1,
+  "active": true
+}
+
+###
+
+### 10. Update existing category
+PUT {{baseUrl}}/categories/1
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "name": "Electronics & Computers",
+  "description": "Updated description for electronics and computer products",
+  "sortOrder": 1,
+  "active": true
+}
+
+###
+
+### 11. Move category to new parent
+PATCH {{baseUrl}}/categories/2/move?newParentId=3
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 12. Move category to root level
+PATCH {{baseUrl}}/categories/2/move
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 13. Update category sort order
+PATCH {{baseUrl}}/categories/1/sort?sortOrder=5
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 14. Activate category
+PATCH {{baseUrl}}/categories/1/status?active=true
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 15. Deactivate category
+PATCH {{baseUrl}}/categories/2/status?active=false
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 16. Check if category name exists
+GET {{baseUrl}}/categories/check-name/Electronics
+Content-Type: {{contentType}}
+
+###
+
+### 17. Get product count for a category
+GET {{baseUrl}}/categories/1/product-count
+Content-Type: {{contentType}}
+
+###
+
+### 18. Delete category
+DELETE {{baseUrl}}/categories/1
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 19. Create category with image
+POST {{baseUrl}}/categories
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "name": "Mobile Phones",
+  "description": "Smartphones and mobile accessories",
+  "imageUrl": "https://example.com/mobile-phones.jpg",
+  "sortOrder": 2,
+  "active": true
+}
+
+###
+
+### 20. Search categories with partial match
+GET {{baseUrl}}/categories/search?keyword=phone
+Content-Type: {{contentType}}
+
+###
+
+### 21. Create nested category structure
+POST {{baseUrl}}/categories
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "name": "Computer Accessories",
+  "description": "Keyboards, mice, monitors, and other computer accessories",
+  "parentId": 1,
+  "sortOrder": 3,
+  "active": true
+}
+
+###
+
+### 22. Get categories in different order
+GET {{baseUrl}}/categories/search?keyword=computer
+Content-Type: {{contentType}}
+
+###
+
+### 23. Create category without description
+POST {{baseUrl}}/categories
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "name": "Gaming",
+  "sortOrder": 10,
+  "active": true
+}
+
+###
+
+### 24. Test category name uniqueness
+GET {{baseUrl}}/categories/check-name/nonexistentcategory
+Content-Type: {{contentType}}
+
+###

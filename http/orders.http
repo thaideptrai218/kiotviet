@@ -1,0 +1,381 @@
+### KiotViet Product Management System - Order API Tests
+### Host: http://localhost:8080
+
+### Variables
+@baseUrl = http://localhost:8080/api/v1
+@contentType = application/json
+
+### 1. Get all orders (paginated)
+GET {{baseUrl}}/orders?page=0&size=10&sortBy=orderDate&sortDir=desc
+Content-Type: {{contentType}}
+
+###
+
+### 2. Get all orders with search
+GET {{baseUrl}}/orders?page=0&size=10&keyword=HD20241201&status=PENDING
+Content-Type: {{contentType}}
+
+###
+
+### 3. Get order by ID
+GET {{baseUrl}}/orders/1
+Content-Type: {{contentType}}
+
+###
+
+### 4. Get order by order number
+GET {{baseUrl}}/orders/number/HD20241201001
+Content-Type: {{contentType}}
+
+###
+
+### 5. Create new order
+POST {{baseUrl}}/orders
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "customer": {
+    "id": 1
+  },
+  "orderItems": [
+    {
+      "product": {
+        "id": 1
+      },
+      "quantity": 2,
+      "unitPrice": 1200.00,
+      "discountAmount": 100.00,
+      "notes": "Special discount"
+    },
+    {
+      "product": {
+        "id": 2
+      },
+      "quantity": 1,
+      "unitPrice": 500.00,
+      "discountAmount": 0.00,
+      "notes": "Accessory"
+    }
+  ],
+  "shippingAddress": "123 Main St, City, State 12345",
+  "shippingFee": 25.00,
+  "taxAmount": 120.00,
+  "discountAmount": 100.00,
+  "paymentMethod": "CREDIT_CARD",
+  "notes": "Rush delivery requested"
+}
+
+###
+
+### 6. Update existing order
+PUT {{baseUrl}}/orders/1
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "customer": {
+    "id": 1
+  },
+  "shippingAddress": "456 Updated Address, City, State 67890",
+  "shippingFee": 30.00,
+  "taxAmount": 130.00,
+  "discountAmount": 150.00,
+  "paymentMethod": "PAYPAL",
+  "notes": "Updated order with express shipping"
+}
+
+###
+
+### 7. Delete order
+DELETE {{baseUrl}}/orders/1
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 8. Get orders by customer
+GET {{baseUrl}}/orders/customer/1
+Content-Type: {{contentType}}
+
+###
+
+### 9. Get orders by status
+GET {{baseUrl}}/orders/status/PENDING
+Content-Type: {{contentType}}
+
+###
+
+### 10. Get orders by date range
+GET {{baseUrl}}/orders/date-range?startDate=2024-12-01T00:00:00&endDate=2024-12-31T23:59:59
+Content-Type: {{contentType}}
+
+###
+
+### 11. Update order status
+PATCH {{baseUrl}}/orders/1/status?status=CONFIRMED
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 12. Process payment for order
+POST {{baseUrl}}/orders/1/payment
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "paymentMethod": "CREDIT_CARD",
+  "amount": 2745.00,
+  "transactionId": "TXN123456789",
+  "notes": "Payment processed via Stripe"
+}
+
+###
+
+### 13. Cancel order
+POST {{baseUrl}}/orders/1/cancel
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "reason": "Customer requested cancellation",
+  "refundAmount": 2745.00
+}
+
+###
+
+### 14. Get order count by status
+GET {{baseUrl}}/orders/count/PENDING
+Content-Type: {{contentType}}
+
+###
+
+### 15. Get total revenue by order statuses
+GET {{baseUrl}}/orders/revenue?statuses=CONFIRMED,DELIVERED
+Content-Type: {{contentType}}
+
+###
+
+### 16. Check if order number exists
+GET {{baseUrl}}/orders/check-number/HD20241201001
+Content-Type: {{contentType}}
+
+###
+
+### 17. Generate unique order number
+GET {{baseUrl}}/orders/generate-number
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 18. Calculate order total
+GET {{baseUrl}}/orders/1/total
+Content-Type: {{contentType}}
+
+###
+
+### 19. Update shipping information
+PUT {{baseUrl}}/orders/1/shipping
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "trackingNumber": "TRACK123456789",
+  "estimatedDelivery": "2024-12-05T15:00:00",
+  "shippingAddress": "789 Delivery Address, City, State 99999"
+}
+
+###
+
+### 20. Add order item
+POST {{baseUrl}}/orders/1/items
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "product": {
+    "id": 3
+  },
+  "quantity": 1,
+  "unitPrice": 200.00,
+  "discountAmount": 20.00,
+  "notes": "Additional item"
+}
+
+###
+
+### 21. Update order item
+PUT {{baseUrl}}/orders/1/items/1
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "quantity": 3,
+  "unitPrice": 1150.00,
+  "discountAmount": 150.00,
+  "notes": "Updated quantity and price"
+}
+
+###
+
+### 22. Remove order item
+DELETE {{baseUrl}}/orders/1/items/1
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 23. Get order items
+GET {{baseUrl}}/orders/1/items
+Content-Type: {{contentType}}
+
+###
+
+### 24. Confirm order
+POST {{baseUrl}}/orders/1/confirm
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "confirmedBy": "admin",
+  "notes": "Order confirmed after inventory check"
+}
+
+###
+
+### 25. Process order
+POST {{baseUrl}}/orders/1/process
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "processedBy": "staff",
+  "notes": "Order sent to fulfillment"
+}
+
+###
+
+### 26. Ship order
+POST {{baseUrl}}/orders/1/ship
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "trackingNumber": "SHIP987654321",
+  "shippedBy": "staff",
+  "notes": "Order shipped via express delivery"
+}
+
+###
+
+### 27. Deliver order
+POST {{baseUrl}}/orders/1/deliver
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "deliveredBy": "staff",
+  "deliveryConfirmation": "Signed by customer",
+  "notes": "Customer satisfied with delivery"
+}
+
+###
+
+### 28. Bulk update order status
+PATCH {{baseUrl}}/orders/bulk-status
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "orderIds": [1, 2, 3],
+  "status": "CANCELLED",
+  "reason": "Bulk cancellation due to inventory issue"
+}
+
+###
+
+### 29. Get orders by payment status
+GET {{baseUrl}}/orders/payment-status/PENDING
+Content-Type: {{contentType}}
+
+###
+
+### 30. Get order statistics
+GET {{baseUrl}}/orders/stats
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 31. Create simple order
+POST {{baseUrl}}/orders
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "customer": {
+    "id": 1
+  },
+  "orderItems": [
+    {
+      "product": {
+        "id": 1
+      },
+      "quantity": 1,
+      "unitPrice": 999.99,
+      "discountAmount": 0.00
+    }
+  ],
+  "paymentMethod": "CASH",
+  "notes": "Simple cash order"
+}
+
+###
+
+### 32. Get today's orders
+GET {{baseUrl}}/orders/today
+Content-Type: {{contentType}}
+
+###
+
+### 33. Get this month's orders
+GET {{baseUrl}}/orders/this-month
+Content-Type: {{contentType}}
+
+###
+
+### 34. Get high-value orders
+GET {{baseUrl}}/orders/high-value?minAmount=5000.00
+Content-Type: {{contentType}}
+
+###
+
+### 35. Create order with multiple payment methods
+POST {{baseUrl}}/orders
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "customer": {
+    "id": 2
+  },
+  "orderItems": [
+    {
+      "product": {
+        "id": 4
+      },
+      "quantity": 5,
+      "unitPrice": 299.99,
+      "discountAmount": 50.00,
+      "notes": "Bulk purchase"
+    }
+  ],
+  "shippingAddress": "Business Address, City, State 12345",
+  "shippingFee": 50.00,
+  "paymentMethod": "BANK_TRANSFER",
+  "notes": "Business order with payment terms"
+}
+
+###

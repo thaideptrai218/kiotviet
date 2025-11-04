@@ -1,0 +1,280 @@
+### KiotViet Product Management System - Customer API Tests
+### Host: http://localhost:8080
+
+### Variables
+@baseUrl = http://localhost:8080/api/v1
+@contentType = application/json
+
+### 1. Get all customers (paginated)
+GET {{baseUrl}}/customers?page=0&size=10&sortBy=name&sortDir=asc
+Content-Type: {{contentType}}
+
+###
+
+### 2. Get all customers with search
+GET {{baseUrl}}/customers?page=0&size=10&keyword=john&activeOnly=true
+Content-Type: {{contentType}}
+
+###
+
+### 3. Get customer by ID
+GET {{baseUrl}}/customers/1
+Content-Type: {{contentType}}
+
+###
+
+### 4. Get customer by customer code
+GET {{baseUrl}}/customers/code/KH000001
+Content-Type: {{contentType}}
+
+###
+
+### 5. Get customer by email
+GET {{baseUrl}}/customers/email/customer@example.com
+Content-Type: {{contentType}}
+
+###
+
+### 6. Create new customer
+POST {{baseUrl}}/customers
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "name": "John Doe",
+  "phoneNumber": "+1234567890",
+  "email": "john.doe@example.com",
+  "address": "123 Main St, City, State 12345",
+  "city": "New York",
+  "district": "Manhattan",
+  "postalCode": "10001",
+  "birthDate": "1990-01-15",
+  "creditLimit": 5000.00,
+  "notes": "VIP customer",
+  "active": true
+}
+
+###
+
+### 7. Update existing customer
+PUT {{baseUrl}}/customers/1
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "name": "John Smith Doe",
+  "phoneNumber": "+1234567890",
+  "email": "john.smith@example.com",
+  "address": "456 Oak Ave, City, State 67890",
+  "city": "Los Angeles",
+  "district": "Beverly Hills",
+  "postalCode": "90210",
+  "creditLimit": 7500.00,
+  "notes": "Updated VIP customer",
+  "active": true
+}
+
+###
+
+### 8. Delete customer
+DELETE {{baseUrl}}/customers/1
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 9. Get active customers
+GET {{baseUrl}}/customers/active
+Content-Type: {{contentType}}
+
+###
+
+### 10. Get customers with loyalty points
+GET {{baseUrl}}/customers/loyalty-points
+Content-Type: {{contentType}}
+
+###
+
+### 11. Add loyalty points to customer
+POST {{baseUrl}}/customers/1/loyalty-points
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "points": 100,
+  "reason": "Purchase reward"
+}
+
+###
+
+### 12. Redeem loyalty points from customer
+POST {{baseUrl}}/customers/1/loyalty-points/redeem
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "points": 50,
+  "reason": "Discount redemption"
+}
+
+###
+
+### 13. Update customer credit limit
+PUT {{baseUrl}}/customers/1/credit-limit
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "creditLimit": 10000.00,
+  "reason": "Credit increase for good payment history"
+}
+
+###
+
+### 14. Update customer balance
+PUT {{baseUrl}}/customers/1/balance
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "balance": 1500.75,
+  "reason": "Payment for order #HD20241201001"
+}
+
+###
+
+### 15. Toggle customer status
+PATCH {{baseUrl}}/customers/1/status?active=false
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 16. Get customer order count
+GET {{baseUrl}}/customers/1/order-count
+Content-Type: {{contentType}}
+
+###
+
+### 17. Check if customer code exists
+GET {{baseUrl}}/customers/check-code/KH000001
+Content-Type: {{contentType}}
+
+###
+
+### 18. Check if customer email exists
+GET {{baseUrl}}/customers/check-email/customer@example.com
+Content-Type: {{contentType}}
+
+###
+
+### 19. Generate unique customer code
+GET {{baseUrl}}/customers/generate-code
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 20. Check customer credit availability
+GET {{baseUrl}}/customers/1/credit-available?amount=1000.00
+Content-Type: {{contentType}}
+
+###
+
+### 21. Get customer total debt
+GET {{baseUrl}}/customers/1/debt
+Content-Type: {{contentType}}
+
+###
+
+### 22. Get top customers by loyalty points
+GET {{baseUrl}}/customers/top-loyalty?limit=10
+Content-Type: {{contentType}}
+
+###
+
+### 23. Get customers with outstanding balance
+GET {{baseUrl}}/customers/outstanding-balance
+Content-Type: {{contentType}}
+
+###
+
+### 24. Update customer contact information
+PUT {{baseUrl}}/customers/1/contact
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "phoneNumber": "+1987654321",
+  "email": "newemail@example.com",
+  "address": "789 New Street, City, State 11111"
+}
+
+###
+
+### 25. Bulk update customer status
+PATCH {{baseUrl}}/customers/bulk-status
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "customerIds": [1, 2, 3],
+  "active": false,
+  "reason": "Account cleanup"
+}
+
+###
+
+### 26. Create customer with minimal data
+POST {{baseUrl}}/customers
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "name": "Jane Smith",
+  "email": "jane.smith@example.com",
+  "active": true
+}
+
+###
+
+### 27. Search customers by phone number
+GET {{baseUrl}}/customers/search?phone=1234567890
+Content-Type: {{contentType}}
+
+###
+
+### 28. Get customers by city
+GET {{baseUrl}}/customers/city/New York
+Content-Type: {{contentType}}
+
+###
+
+### 29. Get customer statistics
+GET {{baseUrl}}/customers/stats
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 30. Create customer with birth date
+POST {{baseUrl}}/customers
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "name": "Robert Johnson",
+  "phoneNumber": "+15551234567",
+  "email": "robert.j@example.com",
+  "address": "321 Pine Street",
+  "city": "Chicago",
+  "district": "Downtown",
+  "postalCode": "60601",
+  "birthDate": "1985-05-20",
+  "creditLimit": 3000.00,
+  "loyaltyPoints": 25,
+  "currentBalance": 450.00,
+  "active": true
+}
+
+###
