@@ -1,0 +1,371 @@
+### KiotViet Product Management System - Inventory API Tests
+### Host: http://localhost:8080
+
+### Variables
+@baseUrl = http://localhost:8080/api/v1
+@contentType = application/json
+
+### 1. Get current stock for a product
+GET {{baseUrl}}/inventory/stock/1
+Content-Type: {{contentType}}
+
+###
+
+### 2. Get stock for multiple products
+GET {{baseUrl}}/inventory/stock?productIds=1,2,3,4,5
+Content-Type: {{contentType}}
+
+###
+
+### 3. Get all products with stock levels
+GET {{baseUrl}}/inventory/products-with-stock
+Content-Type: {{contentType}}
+
+###
+
+### 4. Get low stock products
+GET {{baseUrl}}/inventory/low-stock
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 5. Get out-of-stock products
+GET {{baseUrl}}/inventory/out-of-stock
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 6. Get inventory transactions for a product
+GET {{baseUrl}}/inventory/transactions/product/1?page=0&size=20
+Content-Type: {{contentType}}
+
+###
+
+### 7. Get inventory transactions by date range
+GET {{baseUrl}}/inventory/transactions/date-range?startDate=2024-12-01T00:00:00&endDate=2024-12-31T23:59:59
+Content-Type: {{contentType}}
+
+###
+
+### 8. Get inventory transactions by type
+GET {{baseUrl}}/inventory/transactions/type/IN?page=0&size=50
+Content-Type: {{contentType}}
+
+###
+
+### 9. Create stock IN transaction
+POST {{baseUrl}}/inventory/transactions/in
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "productId": 1,
+  "quantity": 100,
+  "unitCost": 800.00,
+  "referenceType": "PURCHASE",
+  "referenceId": "PO20241201001",
+  "notes": "New stock from supplier purchase"
+}
+
+###
+
+### 10. Create stock OUT transaction
+POST {{baseUrl}}/inventory/transactions/out
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "productId": 1,
+  "quantity": 5,
+  "unitCost": 1200.00,
+  "referenceType": "SALE",
+  "referenceId": "SO20241201001",
+  "notes": "Stock out for customer order"
+}
+
+###
+
+### 11. Create stock adjustment transaction
+POST {{baseUrl}}/inventory/transactions/adjustment
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "productId": 1,
+  "quantity": 3,
+  "unitCost": 1200.00,
+  "referenceType": "ADJUSTMENT",
+  "notes": "Stock count adjustment - found discrepancy"
+}
+
+###
+
+### 12. Create stock return transaction
+POST {{baseUrl}}/inventory/transactions/return
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "productId": 1,
+  "quantity": 2,
+  "unitCost": 1200.00,
+  "referenceType": "RETURN",
+  "referenceId": "RET20241201001",
+  "notes": "Customer returned items"
+}
+
+###
+
+### 13. Get inventory value for a product
+GET {{baseUrl}}/inventory/value/product/1
+Content-Type: {{contentType}}
+
+###
+
+### 14. Get total inventory value
+GET {{baseUrl}}/inventory/value/total
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 15. Get transaction by ID
+GET {{baseUrl}}/inventory/transactions/1
+Content-Type: {{contentType}}
+
+###
+
+### 16. Bulk stock adjustment
+POST {{baseUrl}}/inventory/bulk-adjustment
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "adjustments": [
+    {
+      "productId": 1,
+      "quantity": 5,
+      "unitCost": 1200.00,
+      "referenceType": "ADJUSTMENT",
+      "notes": "Physical count adjustment"
+    },
+    {
+      "productId": 2,
+      "quantity": -2,
+      "unitCost": 800.00,
+      "referenceType": "ADJUSTMENT",
+      "notes": "Damaged items removed"
+    }
+  ],
+  "performedBy": "admin",
+  "notes": "Monthly inventory count"
+}
+
+###
+
+### 17. Get stock movement report
+GET {{baseUrl}}/inventory/movement-report?startDate=2024-12-01&endDate=2024-12-31
+Content-Type: {{contentType}}
+
+###
+
+### 18. Get transaction count by type
+GET {{baseUrl}}/inventory/transactions/count?type=IN
+Content-Type: {{contentType}}
+
+###
+
+### 19. Check stock availability
+GET {{baseUrl}}/inventory/check-stock?productId=1&requiredQuantity=10
+Content-Type: {{contentType}}
+
+###
+
+### 20. Create multiple stock IN transactions
+POST {{baseUrl}}/inventory/bulk-stock-in
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "transactions": [
+    {
+      "productId": 1,
+      "quantity": 50,
+      "unitCost": 800.00,
+      "referenceType": "PURCHASE",
+      "referenceId": "PO20241201002",
+      "notes": "Batch 1 - Supplier A"
+    },
+    {
+      "productId": 2,
+      "quantity": 75,
+      "unitCost": 600.00,
+      "referenceType": "PURCHASE",
+      "referenceId": "PO20241201002",
+      "notes": "Batch 2 - Supplier A"
+    }
+  ],
+  "performedBy": "staff"
+}
+
+###
+
+### 21. Get inventory summary
+GET {{baseUrl}}/inventory/summary
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 22. Get top moving products
+GET {{baseUrl}}/inventory/top-moving?limit=10&period=30
+Content-Type: {{contentType}}
+
+###
+
+### 23. Get inventory alerts
+GET {{baseUrl}}/inventory/alerts
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 24. Set reorder point
+PUT {{baseUrl}}/inventory/reorder-point/1
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "reorderPoint": 10,
+  "maxStock": 100,
+  "notes": "Updated reorder levels based on sales data"
+}
+
+###
+
+### 25. Get forecast demand
+GET {{baseUrl}}/inventory/forecast?productId=1&period=90
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 26. Create stock transfer between locations
+POST {{baseUrl}}/inventory/transfer
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "productId": 1,
+  "fromLocation": "WAREHOUSE_A",
+  "toLocation": "STORE_01",
+  "quantity": 25,
+  "performedBy": "manager",
+  "notes": "Stock transfer for store inventory"
+}
+
+###
+
+### 27. Get inventory by location
+GET {{baseUrl}}/inventory/location/WAREHOUSE_A
+Content-Type: {{contentType}}
+
+###
+
+### 28. Get expired stock (if applicable)
+GET {{baseUrl}}/inventory/expired
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 29. Perform stock count
+POST {{baseUrl}}/inventory/stock-count
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "location": "WAREHOUSE_A",
+  "countedBy": "staff",
+  "notes": "Monthly physical inventory count",
+  "adjustments": [
+    {
+      "productId": 1,
+      "expectedQuantity": 100,
+      "actualQuantity": 98,
+      "unitCost": 1200.00,
+      "notes": "2 units missing - investigating"
+    }
+  ]
+}
+
+###
+
+### 30. Get inventory turnover
+GET {{baseUrl}}/inventory/turnover?period=90&categoryId=1
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 31. Create stock correction
+POST {{baseUrl}}/inventory/correction
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "productId": 1,
+  "correctionType": "LOSS",
+  "quantity": 3,
+  "unitCost": 1200.00,
+  "reason": "Damaged in transit",
+  "approvedBy": "manager",
+  "notes": "Items damaged during delivery - insurance claim filed"
+}
+
+###
+
+### 32. Get inventory aging report
+GET {{baseUrl}}/inventory/aging?days=365
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 33. Reserve stock for order
+POST {{baseUrl}}/inventory/reserve
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "productId": 1,
+  "quantity": 5,
+  "orderId": 1,
+  "reservedBy": "staff",
+  "expiresAt": "2024-12-15T23:59:59",
+  "notes": "Stock reserved for pending order"
+}
+
+###
+
+### 34. Release reserved stock
+POST {{baseUrl}}/inventory/release-reservation
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "reservationId": 1,
+  "releasedBy": "staff",
+  "notes": "Order cancelled - releasing reservation"
+}
+
+###
+
+### 35. Get reserved stock
+GET {{baseUrl}}/inventory/reserved
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###

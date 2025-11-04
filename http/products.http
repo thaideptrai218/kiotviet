@@ -1,0 +1,171 @@
+### KiotViet Product Management System - Product API Tests
+### Host: http://localhost:8080
+
+### Variables
+@baseUrl = http://localhost:8080/api/v1
+@contentType = application/json
+
+### 1. Get all products (paginated)
+GET {{baseUrl}}/products?page=0&size=10&sortBy=name&sortDir=asc
+Content-Type: {{contentType}}
+
+###
+
+### 2. Get all products with search
+GET {{baseUrl}}/products?page=0&size=10&keyword=laptop&activeOnly=true
+Content-Type: {{contentType}}
+
+###
+
+### 3. Get product by ID
+GET {{baseUrl}}/products/1
+Content-Type: {{contentType}}
+
+###
+
+### 4. Get product by SKU
+GET {{baseUrl}}/products/sku/LAPTOP24120001
+Content-Type: {{contentType}}
+
+###
+
+### 5. Create new product
+POST {{baseUrl}}/products
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "name": "Test Laptop",
+  "description": "High-performance laptop for testing",
+  "sku": "LAPTOP24120001",
+  "barcode": "1234567890123",
+  "costPrice": 800.00,
+  "salePrice": 1200.00,
+  "price": 1200.00,
+  "taxRate": 10.00,
+  "weight": 2.5,
+  "minStockLevel": 5,
+  "maxStockLevel": 100,
+  "status": "ACTIVE",
+  "active": true,
+  "category": {
+    "id": 1
+  }
+}
+
+###
+
+### 6. Update existing product
+PUT {{baseUrl}}/products/1
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "name": "Updated Test Laptop",
+  "description": "Updated high-performance laptop",
+  "salePrice": 1150.00,
+  "price": 1150.00,
+  "taxRate": 8.00,
+  "status": "ACTIVE",
+  "active": true
+}
+
+###
+
+### 7. Delete product
+DELETE {{baseUrl}}/products/1
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 8. Get products by category
+GET {{baseUrl}}/products/category/1
+Content-Type: {{contentType}}
+
+###
+
+### 9. Get products by status
+GET {{baseUrl}}/products/status/ACTIVE
+Content-Type: {{contentType}}
+
+###
+
+### 10. Get low stock products
+GET {{baseUrl}}/products/low-stock
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 11. Get products by price range
+GET {{baseUrl}}/products/price-range?minPrice=500&maxPrice=2000
+Content-Type: {{contentType}}
+
+###
+
+### 12. Generate unique SKU
+GET {{baseUrl}}/products/generate-sku
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 13. Calculate price with tax
+GET {{baseUrl}}/products/1/price-with-tax
+Content-Type: {{contentType}}
+
+###
+
+### 14. Update product status
+PATCH {{baseUrl}}/products/1/status?status=INACTIVE
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 15. Check if SKU exists
+GET {{baseUrl}}/products/check-sku/LAPTOP24120001
+Content-Type: {{contentType}}
+
+###
+
+### 16. Get product statistics
+GET {{baseUrl}}/products/stats
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+###
+
+### 17. Create product with minimal data
+POST {{baseUrl}}/products
+Content-Type: {{contentType}}
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "name": "Simple Product",
+  "salePrice": 99.99,
+  "price": 99.99,
+  "status": "ACTIVE",
+  "active": true
+}
+
+###
+
+### 18. Search products with empty keyword (should return all)
+GET {{baseUrl}}/products?keyword=
+Content-Type: {{contentType}}
+
+###
+
+### 19. Get products with different sorting
+GET {{baseUrl}}/products?page=0&size=5&sortBy=price&sortDir=desc
+Content-Type: {{contentType}}
+
+###
+
+### 20. Get products with large page size
+GET {{baseUrl}}/products?page=0&size=50&sortBy=name
+Content-Type: {{contentType}}
+
+###
