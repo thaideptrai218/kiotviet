@@ -324,3 +324,4 @@ make local-run|local-test|local-build
 
 *Last Updated: $(date)*
 *Project Version: 1.0.0*
+- always git commit when implemting a big changes. always check for compilation error after impleting a feature
