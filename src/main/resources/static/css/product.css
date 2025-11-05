@@ -1,0 +1,84 @@
+/* static/css/product.css */
+body {
+    background-color: #f8f9fa;
+    font-size: 0.925rem;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+.form-select-sm, .form-control-sm {
+    font-size: 0.875rem;
+}
+
+.table th {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #495057;
+    border-top: none;
+}
+
+.table td {
+    vertical-align: middle;
+    font-size: 0.875rem;
+}
+
+.table img.rounded {
+    object-fit: cover;
+}
+
+.form-check-inline .form-check-input {
+    margin-right: 0.35rem;
+}
+
+#globalSearch {
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 8px;
+}
+
+.btn-outline-secondary {
+    border-radius: 8px;
+}
+
+.badge {
+    font-size: 0.75rem;
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.nav-tabs .nav-link.active {
+    color: #0d6efd;
+    border-bottom-color: #0d6efd;
+}
+
+#imageDropzone {
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#imageDropzone.border-primary {
+    border-color: #0d6efd !important;
+    background-color: #f8f9ff;
+}
+
+.modal-xl {
+    max-width: 1000px;
+}
+
+#createCategoryModal .modal-sm {
+    max-width: 360px;
+}
+#createCategoryModal .modal-content {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
